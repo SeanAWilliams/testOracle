@@ -38,6 +38,9 @@ def validateArgs(OptionAccessor opt) {
 
 def checkReview(OptionAccessor opt){
     Review review = new Review(opt.getProperty('d'))
+    if (review.fail) {
+        usage()
+    }
 }
 
 def usage() {

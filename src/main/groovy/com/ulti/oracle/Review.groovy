@@ -9,13 +9,19 @@ import com.mdimension.jchronic.Chronic
 class Review {
     Date date
     Chronic chronic
+    def  fail = false
 
     Review(date) {
-        Date.metaClass.'static'.fromString = { str ->
-            com.mdimension.jchronic.Chronic.parse(str).beginCalendar.time
+        try {
+            Date.metaClass.'static'.fromString = { str ->
+                com.mdimension.jchronic.Chronic.parse(str).beginCalendar.time
+            }
+            this.date = Date.fromString(date)
+            init()
+        }catch (e){
+            println "Please enter a valid date, greater than the year 1969"
+            fail = true
         }
-        this.date = Date.fromString(date)
-        init()
     }
 
     def init() {
